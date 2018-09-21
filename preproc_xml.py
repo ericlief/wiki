@@ -14,11 +14,16 @@ file_out = sys.argv[2]
     #tree = et.ElementTree()
     #root = tree.parse(fh)
     #pages = []
-    #for e in tree.getiterator('page'):
+    #for e in tree.getiterator('page'):wiki = WikiCorpus(path_to_wiki_dump) # create word->word_id mapping, ~8h on full wiki
         #pages.append(e)
         
         
-path_to_wiki_dump = datapath(file_in)
-corpus_path = get_tmpfile("wiki-corpus.mm")
-wiki = WikiCorpus(path_to_wiki_dump) # create word->word_id mapping, ~8h on full wiki
-MmCorpus.serialize(corpus_path, wiki) # another 8h, creates a file in MatrixMarket format and mapping    
+#path_to_wiki_dump = datapath(file_in)
+#corpus_path = get_tmpfile("wiki-corpus.mm")
+
+#wiki = WikiCorpus(path_to_wiki_dump) # create word->word_id mapping, ~8h on full wiki
+wiki = WikiCorpus(file_in, lemmatize=False, lower=False) # create word->word_id mapping, ~8h on full wiki
+#MmCorpus.serialize(corpus_path, wiki) # another 8h, creates a file in MatrixMarket format and mapping    
+for text in wiki.get_texts():
+    print(text)
+    
